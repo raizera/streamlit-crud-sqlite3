@@ -1,73 +1,7 @@
-import readline
-import sqlite3
-
 import pandas as pd
 import streamlit as st
 
-import models.cadastro as cadastro
-
-conn = sqlite3.connect('data.db')
-c = conn.cursor()
-
-# CREATE TABLE
-
-
-def create_table():
-    c.execute(
-        'CREATE TABLE IF NOT EXISTS cadastro (nome TEXT, email TEXT, profissao TEXT, sexo TEXT, idade INTEGER, '
-        'estado TEXT)')
-
-#----------CREATE----------#
-
-
-def create(nome, email, profissao, sexo, idade, estado):
-    c.execute('INSERT INTO cadastro (nome, email, profissao, sexo, idade, estado) VALUES (?, ?, ?, ?, ? ,?)',
-              (nome, email, profissao, sexo, idade, estado)
-              )
-    conn.commit()
-
-#----------end CREATE----------#
-
-#----------READ----------#
-
-
-def read_():
-    c.execute('SELECT * FROM cadastro')
-    data = c.fetchall()
-    return data
-
-
-def read():
-    c.execute('SELECT * FROM cadastro')
-    read_list = []
-
-    for row in c.fetchall():
-        read_list.append(cadastro.Cadastro(
-            row[0], row[1], row[2], row[3], row[4], row[5]))
-    return read_list
-
-
-read_list = []
-
-for item in read():
-    read_list.append([item.nome, item.email, item.profissao,
-                     item.sexo, item.idade, item.estado])
-
-# gerando a lista com pandas
-df = pd.DataFrame(
-    read_list,
-    columns=['nome', 'email', 'profissao', 'sexo', 'idade', 'estado']
-)
-
-#----------end READ----------#
-
-
-#----------UPDATE----------#
-
-def update():
-    c.execute('')
-
-#----------end UPDATE----------#
+import controller.userController as usrc
 
 
 def main():
@@ -95,15 +29,15 @@ def main():
                                    'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'])
 
         if st.button("cadastrar"):
-            create_table()
-            create(
+            usrc.create_table()
+            usrc.create(
                 nome, email, profissao, sexo, idade, estado
             )  # essa ordem é importante estar correta
             st.success("cadastrado com sucesso!")
 
     elif choice == "Read":
         st.subheader("Consultar usuário")
-        tabela_ = read_()
+        tabela_ = usrc.read_()
         st.table(df)
         # st.write(tabela_)
 
@@ -117,6 +51,18 @@ def main():
     else:
         st.subheader("Sobre")
 
+
+# gerando a lista com pandas
+read_list = []
+
+for item in usrc.read():
+    read_list.append([item.nome, item.email, item.profissao,
+                     item.sexo, item.idade, item.estado])
+
+df = pd.DataFrame(
+    read_list,
+    columns=['nome', 'email', 'profissao', 'sexo', 'idade', 'estado']
+)
 
 if __name__ == '__main__':
     main()

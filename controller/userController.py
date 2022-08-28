@@ -1,7 +1,6 @@
 import sqlite3
 
 import models.cadastro as cadastro
-import pandas as pd
 
 conn = sqlite3.connect('data.db')
 c = conn.cursor()
@@ -23,10 +22,9 @@ def create(nome, email, profissao, sexo, idade, estado):
               (nome, email, profissao, sexo, idade, estado)
               )
     conn.commit()
-
 #----------end CREATE----------#
 
-#----------READ----------#
+#-------------READ-------------#
 
 
 def read_():
@@ -43,14 +41,12 @@ def read():
         read_list.append(cadastro.Cadastro(
             row[0], row[1], row[2], row[3], row[4], row[5]))
     return read_list
-
-
 #----------end READ----------#
 
 
-#----------UPDATE----------#
+#-----------UPDATE-----------#
 
 def update():
     c.execute('')
 
-#----------end UPDATE----------#
+#---------end UPDATE---------#

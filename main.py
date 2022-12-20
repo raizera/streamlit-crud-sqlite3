@@ -5,13 +5,12 @@ import controller.userController as usrc
 
 
 def main():
-    st.title("CRUD with Streamlit")
 
     menu = ["Home", "Cadastrar", "Consultar", "Alterar", "Deletar"]
     choice = st.sidebar.selectbox("Menu", menu)
 
     if choice == "Home":
-        st.subheader("Bem-vindo ao sistema de cadastro no Streamlit!")
+        st.subheader("CRUD com Python + Streamlit")
         st.subheader("Navegue pelo menu lateral.")
 
     elif choice == "Cadastrar":

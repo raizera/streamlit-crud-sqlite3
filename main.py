@@ -1,4 +1,6 @@
 
+import datetime
+
 import streamlit as st
 
 import controller.userController as usrc
@@ -27,7 +29,7 @@ def main():
         with col2:
             email = st.text_input(label="E-mail")
             idade = st.date_input(
-                "DATA DE NASCIMENTO (AAAA/MM/DD)", min_value=None)
+                "DATA DE NASCIMENTO (AAAA/MM/DD)")
             estado = st.selectbox("ESTADO",
                                   ['', 'AC', 'AL', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB',
                                    'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'], format_func=lambda x: 'Selecionar estado' if x == '' else x)
@@ -79,7 +81,7 @@ def main():
             idade = resultado[0][4]
             estado = resultado[0][5]
 
-            #tabela = usrc.read()
+            # tabela = usrc.read()
 
             col1, col2 = st.columns(2)
 
